@@ -1,0 +1,1 @@
+<template><div><h1>Laporan</h1><p>Segera hadir.</p></div></template>

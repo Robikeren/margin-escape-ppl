@@ -79,4 +79,22 @@ class AuthController extends Controller
             'message' => 'Berhasil logout',
         ], 200);
     }
+
+    // Lihat daftar staff (khusus Owner)
+    public function daftarStaff(Request $request)
+    {
+        if (! $request->user()->isOwner()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Hanya Owner yang dapat mengakses daftar staff',
+            ], 403);
+        }
+
+        $staff = User::where('role', 'staff')->get(['id', 'nama', 'email']);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $staff,
+        ], 200);
+    }
 }

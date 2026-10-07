@@ -13,70 +13,104 @@ function handleLogout() {
 
 <template>
   <div class="app-layout">
-    <header class="topbar">
+    <aside class="sidebar">
       <img :src="logo" alt="Margin Escape" class="logo" />
 
       <nav>
-        <router-link to="/input-stok">Input Stok</router-link>
+        <template v-if="authStore.isOwner">
+          <router-link to="/dashboard">Dashboard</router-link>
+          <router-link to="/forecasting">Forecasting</router-link>
+          <router-link to="/riwayat">Riwayat Stok</router-link>
+          <router-link to="/notifikasi">Notifikasi</router-link>
+          <router-link to="/laporan">Laporan</router-link>
+          <router-link to="/kelola-staff">Kelola Staff</router-link>
+        </template>
+        <template v-else>
+          <router-link to="/input-stok">Input Stok</router-link>
+          <router-link to="/riwayat">Riwayat Stok</router-link>
+          <router-link to="/notifikasi">Notifikasi</router-link>
+        </template>
       </nav>
 
       <div class="user-info">
         <span>{{ authStore.user?.nama }}</span>
         <button @click="handleLogout">Keluar</button>
       </div>
-    </header>
+    </aside>
 
     <main class="content">
-      <router-view />
+      <div class="content-inner">
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
 
 <style scoped>
 .app-layout {
+  display: flex;
   min-height: 100vh;
-  background: var(--color-cream);
 }
 
-.topbar {
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-primary);
+  color: white;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  padding: 0.75rem 2rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  flex-direction: column;
+  padding: 1.5rem 1rem;
 }
 
 .logo {
-  height: 36px;
+  height: 40px;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
 }
 
 nav a {
-  color: var(--color-coffee-dark);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   font-weight: 500;
-  margin-right: 1.5rem;
   font-size: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 nav a.router-link-active {
-  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   font-weight: 600;
 }
 
 .user-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
   font-size: 0.85rem;
-  color: var(--color-coffee-dark);
+}
+
+.user-info span {
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .user-info button {
-  background: var(--color-primary);
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-family: var(--font-base);
@@ -84,10 +118,21 @@ nav a.router-link-active {
 }
 
 .user-info button:hover {
-  background: var(--color-primary-dark);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .content {
+  flex: 1;
+  background-image: url('../assets/staff-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.content-inner {
+  position: relative;
+  z-index: 1;
   padding: 2rem;
   max-width: 900px;
   margin: 0 auto;

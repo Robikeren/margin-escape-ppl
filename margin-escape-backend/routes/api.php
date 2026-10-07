@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/staff', [AuthController::class, 'daftarStaff']);
 
     // Stok Opname
     Route::post('/stok-opname', [StokOpnameController::class, 'store']);
