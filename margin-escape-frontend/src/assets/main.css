@@ -1,0 +1,24 @@
+:root {
+  --color-primary: #D9631E;
+  --color-primary-dark: #B84F15;
+  --color-coffee-dark: #2E1F17;
+  --color-cream: #F7F0E6;
+  --color-overlay: rgba(217, 99, 30, 0.55);
+
+  --font-base: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  color: var(--color-coffee-dark);
+  background-color: var(--color-cream);
+}
+
+button {
+  font-family: var(--font-base);
+}
